@@ -1,0 +1,25 @@
+{
+  "name": "fossil-movies",
+  "main": "index.js",
+  "version": "0.0.0",
+  "authors": [
+    "Julien Muetton <themouette@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.0.3",
+    "requirejs": "~2.1.8",
+    "backbone": "~1.0.0",
+    "handlebars": "~1.0.0",
+    "i18next": "~1.6.3",
+    "underscore": "~1.5.1"
+  }
+}
