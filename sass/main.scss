@@ -1,0 +1,8 @@
+@import "bourbon";
+
+body {
+  @include linear-gradient(to top, #8fdce5, #3dc3d1, $fallback: red);
+  font-family: $helvetica;
+  font-family: $lucida-grande;
+}
+h1 {color:blue;}

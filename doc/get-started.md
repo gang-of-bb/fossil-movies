@@ -33,6 +33,11 @@ define('services/template', [
 });
 ```
 
+Sass
+----
+
+This repository uses sass and bourbon to generate css files.
+
 Grunt tasks
 -----------
 
@@ -40,8 +45,8 @@ To build project for production or dev environment simply run the dedicated
 task:
 
 ``` sh
-$ grunt release:dev
-$ grunt release:production
+$ grunt dev     # build dev and launch a server on 1337 port.
+$ grunt release
 ```
 
 It is possible to define new environments.

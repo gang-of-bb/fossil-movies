@@ -4,6 +4,22 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
+    folders: {
+      'public': '.',
+      'css': '<%= folders.public %>/css',
+      'sass': 'sass'
+    },
+
+    // sass files to compile
+    sassFiles: [{
+          expand: true,               // to define a directory
+          cwd: '<%= folders.sass %>', // source folder
+          src: ['*.scss'],            // source extension
+          dest: '<%= folders.css %>', // destination folder
+          ext: '.css'                 // destination extension
+        }],
+
+    // kernel files to concat
     kernelFiles: [
                 'bower_components/requirejs/require.js',
                 'src/config.js',
@@ -13,8 +29,38 @@ module.exports = function(grunt) {
     concat: {
         kernel: {
             src: '<%= kernelFiles %>',
-            dest: 'index.js'
+            dest: '<%= folders.public %>/index.js'
         }
+    },
+
+    sass: {
+      options: {
+        require: [
+          "bourbon"
+        ],
+        bundleExec: true
+      },
+      // linter for sass files.
+      lint: {
+        options: {
+          check: true
+        },
+        files: '<%= sassFiles %>'
+      },
+      // compile for development environment
+      dev: {
+        options: {
+          style: 'expanded'
+        },
+        files: '<%= sassFiles %>'
+      },
+      // compile for release.
+      release: {
+        options: {
+          style: 'compressed'
+        },
+        files: '<%= sassFiles %>'
+      }
     },
 
     connect: {
@@ -31,6 +77,10 @@ module.exports = function(grunt) {
         kernel: {
             files: '<%= kernelFiles %>',
             tasks: ['concat:kernel']
+        },
+        sass: {
+            files: '<%= folders.sass %>/**/*.scss',
+            tasks: ['sass:dev']
         }
     },
     concurrent: {
@@ -46,11 +96,18 @@ module.exports = function(grunt) {
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib');
   grunt.loadNpmTasks('grunt-concurrent');
+  grunt.loadNpmTasks('grunt-contrib-sass');
+
+  // helpers tasks.
+  grunt.registerTask('test', ['sass:lint']);
+  grunt.registerTask('build:dev', ['concat:kernel', 'sass:dev']);
+  grunt.registerTask('build:release', ['sass:release']);
+
+  // tasks to launch
+  grunt.registerTask('dev', ['build:dev', 'concurrent']);
+  grunt.registerTask('release', ['test', 'build:release']);
 
   // Default task(s).
-  grunt.registerTask('release:dev', ['concat:kernel']);
-  grunt.registerTask('release:production', ['']);
-
-  grunt.registerTask('default', ['release:dev', 'concurrent']);
+  grunt.registerTask('default', ['dev']);
 
 };
