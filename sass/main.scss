@@ -5,4 +5,18 @@ body {
   font-family: $helvetica;
   font-family: $lucida-grande;
 }
-h1 {color:blue;}
+nav li{
+    @include inline-block;
+}
+.mod-movies {
+}
+.mod-movie {
+    padding: 5px;
+    p {
+        @include clearfix;
+    }
+    img {
+        float: left;
+        padding-right: 5px;
+    }
+}
