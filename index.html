@@ -4,9 +4,14 @@
         <script src="./index.js" type="text/javascript" charset="utf-8"></script>
     </head>
     <body>
-        <p>Welcome to the default page</p>
-        <p>{{t "something"}}</p>
-        <p>{{t "app:something"}}</p>
-        <div data-fossil-region="module" />
+        <p>Some translation, ommiting the namespace: {{t "something"}}</p>
+        <p>Some translation, using namespace: {{t "app:something"}}</p>
+        <nav>
+            <ul>
+                <li><a href="#">home</a></li>
+                <li><a href="{{url 'movies' }}">Movies</a></li>
+            </ul>
+        </nav>
+        <div data-fossil-placeholder="module" />
     </body>
 </html>
