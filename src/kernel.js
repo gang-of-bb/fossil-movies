@@ -4,8 +4,9 @@ require([
     'services.template',
     'services.router',
     'services.session',
-    'services.i18next'
-], function (_, Fossil, template, router, session, i18n) {
+    'services.i18next',
+    'modules/movies/index'
+], function (_, Fossil, template, router, session, i18n, MovieModule) {
 
     var app = new (Fossil.Application.extend({
         // i18n service namespace
@@ -28,7 +29,7 @@ require([
         .use('session', session)
         .use('i18n', i18n)
 
-//        .connect('foo', new FooModule())
+        .connect('movies', new MovieModule())
         .start()
 
     ;
